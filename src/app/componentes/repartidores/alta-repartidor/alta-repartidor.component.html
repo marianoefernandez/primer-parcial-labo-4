@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>Alta Repartidor</h2>
+            <p class="lead">Ingrese los datos correspondientes para dar de alta a un repartidor</p>
+        </div>
+        <div class="row">
+            <div [hidden]="listaPaisesFlag" class="col-md-4 order-md-2 mb-4" id="listaPaises">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Elige el pais</span>
+                    <span class="badge badge-secondary badge-pill">3</span>
+                </h4>
+                <app-lista-paises (eleccionPaisEvento)="seleccionarPais($event)"></app-lista-paises>
+                <div>
+                </div>
+            </div>
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Datos del repartidor</h4>
+                <form class="needs-validation" novalidate="" [formGroup]="formulario" (ngSubmit)="darAltaRepartidor()">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="" value="" required="" formControlName="nombre">
+                            <span *ngIf="verificarError('nombre')" class="form-text text-danger">
+                                {{obtenerError('nombre')}}
+                            </span>                        
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dni">DNI</label>
+                            <input type="number" class="form-control" id="dni" name="Dni" placeholder="Ingrese un numero valido de dni" value="" formControlName="dni" required="">
+                            <span *ngIf="verificarError('dni')" class="form-text text-danger">
+                                {{obtenerError('dni')}}
+                            </span>                        
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edad">Edad</label>
+                            <input type="number" class="form-control" id="edad" formControlName="edad" name="Edad" placeholder="Ingrese un numero mayor a 18 años" value="" required="">
+                            <span *ngIf="verificarError('edad')" class="form-text text-danger">
+                                {{obtenerError('edad')}}
+                            </span>                           
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="capacidad">Cantidad<span class="text-muted"> (Unidades)</span></label>
+                            <input type="number" class="form-control" id="capacidad" formControlName="cantidadUnidades" name="Capacidad" placeholder="Ingrese un número mayor a 0" value="" required="">
+                            <span *ngIf="verificarError('cantidadUnidades')" class="form-text text-danger">
+                                {{obtenerError('cantidadUnidades')}}
+                            </span>                               
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="pais">Pais de origen</label>
+                            <br>
+                            <input (click)="activarListaPaises()" type="button" value="Elegir pais">
+                            <!-- <button (click)="activarListaPaises()">Elegir pais</button> -->
+                            <input type="text" class="form-control" id="pais" placeholder="Pais elegido" value='{{paisElegidoNombre}}' required="" readonly="true">
+                            <span class="form-text text-danger">
+                                {{validarPais()}}
+                            </span>                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="unidad-propia">¿Es unidad propia?</label>
+                            <select class="custom-select d-block w-100" id="unidad-propia" name="unidadPropia" formControlName="esUnidadPropia" required="">
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
+                            </select>
+                            <span *ngIf="verificarError('esUnidadPropia')" class="form-text text-danger">
+                                {{obtenerError('esUnidadPropia')}}
+                            </span>                          
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-danger btn-lg btn-block" type="submit">Dar de Alta al repartidor</button>
+                </form>
+            </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">© 2024 Primer Parical Fernández Mariano </p>
+        </footer>
+    </div>    
+</body>
+</html>

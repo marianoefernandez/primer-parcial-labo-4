@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Paises</title>
+</head>
+<body>
+    <div class="card" id="estructura">
+        <div id="seleccion">
+            <p>Seleccion Actual: {{nombre}}-{{dni}}</p> 
+        </div>
+        <div id="repartidores" class="card-body text-black">
+            <table>
+                <tr>
+                  <th>Nombre</th>
+                  <th>DNI</th>
+                  <th>Edad</th>
+                  <th>Cantidad (Unidades)</th>
+                  <th>Pais de Origen</th>
+                  <th>Utilidad propia</th>
+                </tr>
+                <tr (mouseenter) = "cambiarHoverRepartidor(repartidor)" (click) = "elegirRepartidor(repartidor)" *ngFor="let repartidor of listaRepartidores; index as i" id="repartidor">
+                  <td>{{repartidor["nombre"]}}</td>
+                  <td>{{repartidor["dni"]}}</td>
+                  <td>{{repartidor["edad"]}}</td>
+                  <td>{{repartidor["cantidadUnidades"]}}</td>
+                  <td>{{repartidor["paisElegido"]["name"]["common"]}}</td>
+                  <td *ngIf='repartidor["esUnidadPropia"] == true else elseBlock'>Si</td>
+                  <ng-template #elseBlock><td>No</td></ng-template>
+                </tr>
+              </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+.bandera
+{
+    height: 48px;
+    width: 48px;
+    margin: 5px;
+}
+
+.bandera:hover
+{
+    border:solid;
+    border-color: rgb(186, 103, 211);
+    cursor: pointer;
+}
+
+#paises
+{
+    height: 300px;
+	overflow-y: scroll;
+    flex-wrap: wrap;
+	background-color: #c9bbbb;
+}
+
+#seleccion
+{
+	background-color: #c9bbbb;
+    font-weight: bold;
+}
+
+p
+{
+    margin: 12px;
+}
+
+body 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    flex-wrap: wrap;
+}
+
+#estructura
+{
+	flex: auto;
+    border-radius: 40px;
+    overflow: hidden;
+    margin: 10px 10px;
+    transition: .5s;
+}

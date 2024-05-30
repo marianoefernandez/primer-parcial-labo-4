@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body #pagina>
+    <div class="contenido">
+        <h1 *ngIf="autenticador.usuarioActual == null; else elseblock" >Usuario Logueado: Ninguno</h1>
+        <ng-template #elseblock>
+            <h1>Usuario Logueado: {{autenticador.usuarioActual.email}}</h1>
+        </ng-template>
+        <button *ngIf="autenticador.usuarioActual == null" (click)="navigate('sesiones/login')">Ir al login</button>
+        <button *ngIf="autenticador.usuarioActual != null" (click)="cerrarSesion()">Cerrar Sesion</button>
+        <button *ngIf="autenticador.usuarioActual != null" (click)="navigate('repartidores')">Agregar repartidor</button>
+        <button *ngIf="autenticador.usuarioActual != null" (click)="navigate('repartidores/repartidor-detalle')">Ver repartidores</button>
+        <button *ngIf="firestore.datosUsuarioActual != null && firestore.datosUsuarioActual.tipoUsuario == 'admin'" (click)="navigate('helados')">Sacar helados</button>
+    </div>
+    <div *ngFor="let item of githubInfo | keyvalue">
+        <div class="card">
+            <div class="head">
+                <div class="circle"></div>
+                <div *ngIf="item.key == 'avatar_url'" class="img">
+                    <img src="{{item.value}}" alt="">
+                </div>
+            </div>
+    
+            <div class="description">
+                <h3>{{item.key}}</h3>
+                <p>{{item.value}}</p>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>
+<router-outlet></router-outlet>

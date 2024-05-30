@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Paises</title>
+</head>
+<body>
+    <div class="card" id="estructura">
+        <div id="seleccion">
+            <p>Seleccion Actual: {{paisSeleccionado}}</p> 
+        </div>
+        <div id="paises" class="card-body text-black">
+            <h3>Europa</h3>
+            <input *ngFor="let pais of paisesEuropeos; index as i" (mouseenter)="cambiarHoverPais(pais)" (click)="verificarPais(pais)" type="image" src='{{pais["flags"]["png"]}}' class="bandera" id='{{pais["name"]["common"]}}'>
+            <hr class="mb-4">
+            <h3>Africa</h3>
+            <input *ngFor="let pais of paisesAfricanos; index as i" (mouseenter)="cambiarHoverPais(pais)" (click)="verificarPais(pais)" type="image" src='{{pais["flags"]["png"]}}' class="bandera" id='{{pais["name"]["common"]}}'>
+        </div>
+    </div>
+</body>
+</html>

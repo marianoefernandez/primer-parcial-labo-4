@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="modo-nocturno">
+    <div class="card">
+        <div class="head">
+            <div class="circle"></div>
+            <div class="img">
+                <img src="{{repartidor.paisElegido['flags']['png']}}">
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>{{repartidor.nombre}}</h3>
+            <p>DNI: {{repartidor.dni}}</p>
+            <p>EDAD: {{repartidor.edad}} años</p>
+            <p>CANTIDAD UNIDADES: {{repartidor.cantidadUnidades}} unidades</p>
+            <p>PAIS: {{repartidor.paisElegido['name']['common']}}</p>
+            <p *ngIf='repartidor["esUnidadPropia"] == true else elseBlock'>ES UNIDAD PROPIA: Si</p>
+            <ng-template #elseBlock><p>ES UNIDAD PROPIA: No</p></ng-template>
+        </div> 
+    </div>
+</body>
+</html>
+
