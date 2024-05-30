@@ -1,0 +1,8 @@
+<body>
+    <h2 >Usted está eliminando el helado: {{heladoAEliminar?.sabor}}-{{heladoAEliminar?.tipo}} </h2>
+
+    <h3>¿Desea aceptar la operacion?</h3>
+
+    <button (click)="eliminarHelado()" type="button" class="w-100 btn btn-lg btn-success">Eliminar</button>
+    <button (click)="cencelarOperacion()" type="button" class="w-100 btn btn-lg btn-danger">Cancelar</button>
+</body>

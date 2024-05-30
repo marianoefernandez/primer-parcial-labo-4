@@ -28,8 +28,33 @@
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
       <h1 class="display-4 fw-normal">ABM HELADOS</h1>
-      <div style="text-align: center;">
-        <button type="button" class="w-200 btn btn-lg btn-outline-success">Ver todos los helados listos</button>
+      <h2 *ngIf="heladoElegido == null">HELADO ELEGIDO: NINGUNO</h2>
+      <h2 *ngIf="heladoElegido != null">HELADO ELEGIDO: {{sabor}}/{{tipo}}</h2>
+      <div style="text-align: center;">      
+
+        <div class="card" id="estructura">
+          <div id="seleccion">
+              <p>Seleccion Actual: {{sabor}}-{{tipo}}</p> 
+          </div>
+          <div id="helados" class="card-body text-black">
+              <table>
+                  <tr>
+                    <th>Sabor</th>
+                    <th>Tipo</th>
+                    <th>Peso</th>
+                    <th>Precio</th>
+                  </tr>
+                  <tr (mouseenter) = "cambiarHoverHelado(helado)" (click) = "elegirHelado(helado)" *ngFor="let helado of listaHelados; index as i" id="helado">
+                    <td>{{helado.sabor}}</td>
+                    <td>{{helado.tipo}}</td>
+                    <td>{{helado.peso}} gr</td>
+                    <td>${{helado.precio}}</td>
+                    <ng-template #elseBlock><td>No</td></ng-template>
+                  </tr>
+                </table>
+          </div>
+      </div>
+
       </div>
     </div>
   </header>
@@ -39,7 +64,7 @@
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">CREAR HELADO</h4>
+            <h4 class="my-0 fw-normal">CREAR</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">CREA TU HELADO</h1>
@@ -49,14 +74,14 @@
               <li>Email support</li>
               <li>Help center access</li> -->
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Crear Helado</button>
+            <button type="button" (click)="cambiarOpcion('crear')" class="w-100 btn btn-lg btn-outline-primary">Crear Helado</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Pro</h4>
+            <h4 class="my-0 fw-normal">MODIFICAR</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">MODIFICA TU HELADO</h1>
@@ -66,14 +91,14 @@
               <li>Priority email support</li>
               <li>Help center access</li> -->
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Modificar Helado</button>
+            <button [disabled]="this.heladoElegido == null" (click)="cambiarOpcion('modificar')" type="button" class="w-100 btn btn-lg btn-primary">Modificar Helado</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
           <div class="card-header py-3 text-white bg-primary border-primary">
-            <h4 class="my-0 fw-normal">Enterprise</h4>
+            <h4 class="my-0 fw-normal">ELIMINAR</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">ELIMINA TU HELADO</h1>
@@ -83,14 +108,17 @@
               <li>Phone and email support</li>
               <li>Help center access</li> -->
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">ELIMINAR HELADO</button>
+            <button [disabled]="this.heladoElegido == null" type="button" (click)="cambiarOpcion('borrar')" class="w-100 btn btn-lg btn-primary">Eliminar Helado</button>
           </div>
         </div>
       </div>
     </div>
+      <app-crear-helado (emitirAlta)="darAltaHelado($event)" *ngIf="opcionSeleccionada == 'crear'"></app-crear-helado>
+      <app-modificar-helado *ngIf="opcionSeleccionada == 'modificar'"></app-modificar-helado>
+      <app-borrar-helado [heladoAEliminar]="heladoElegido" *ngIf="opcionSeleccionada == 'borrar'"></app-borrar-helado>
+    <div class="card abm">
 
-    <h2 class="display-6 text-center mb-4">ACA SE VA A MOSTRAR EL COMPONENTE ACTIVO (YA SEA ELIMINAR/MODIFICAR/AGREGAR)</h2>
-
+    </div>
     <!-- <div class="table-responsive">
       <table class="table text-center">
         <thead>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { Repartidor } from 'src/app/interfaces/repartidor';
@@ -12,7 +12,7 @@ import swal from 'sweetalert2';
   templateUrl: './alta-repartidor.component.html',
   styleUrls: ['./alta-repartidor.component.css']
 })
-export class AltaRepartidorComponent 
+export class AltaRepartidorComponent  implements OnInit,OnDestroy
 {
 
   public listaPaisesFlag:boolean = true;
@@ -25,6 +25,8 @@ export class AltaRepartidorComponent
   public esUnidadPropia : boolean = false;
   public listaRepartidores : Repartidor[] = [];
   public suscripcion!: Subscription;
+  @Output () eleccionPaisEvento: EventEmitter<any> = new EventEmitter();
+
 
   public formulario: FormGroup = this.forms.group({
     nombre: ['', [Validators.required,Validators.minLength(1),Validators.pattern('^[a-zA-Z]+$')]],
@@ -48,6 +50,10 @@ export class AltaRepartidorComponent
           this.listaRepartidores.push(repartidores[i])
         }
       })
+  }
+
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
   }
 
   public activarListaPaises()

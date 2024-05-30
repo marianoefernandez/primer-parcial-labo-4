@@ -26,7 +26,6 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     ErrorComponent,
-    HeladosComponent
   ],
   imports: [
     BrowserModule,
