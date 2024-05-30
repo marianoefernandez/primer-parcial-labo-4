@@ -58,7 +58,7 @@ export class FirestoreService{
         const datosHelado = datos.data();
         if(datosHelado["tipo"] == tipo)
         {
-          updateDoc(doc(this.firestore,"turnos",id),dato)
+          updateDoc(doc(this.firestore,"helados",id),dato)
         }
       });   
       return true;
@@ -83,7 +83,8 @@ export class FirestoreService{
         const datosHelado = datos.data();
         if(datosHelado["tipo"] == tipo)
         {
-          await deleteDoc(doc(this.firestore,"turnos",id));
+          console.log()
+          await deleteDoc(doc(this.firestore,"helados",id));
         }
         //await updateDoc(doc(this.firestore,"turnos",id),dato)
       });   

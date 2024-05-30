@@ -44,7 +44,7 @@
                     <th>Peso</th>
                     <th>Precio</th>
                   </tr>
-                  <tr (mouseenter) = "cambiarHoverHelado(helado)" (click) = "elegirHelado(helado)" *ngFor="let helado of listaHelados; index as i" id="helado">
+                  <tr (mouseenter) = "cambiarHoverHelado(helado)" (click) = "elegirHelado(helado,i)" *ngFor="let helado of listaHelados; index as i" id="helado">
                     <td>{{helado.sabor}}</td>
                     <td>{{helado.tipo}}</td>
                     <td>{{helado.peso}} gr</td>
@@ -114,7 +114,7 @@
       </div>
     </div>
       <app-crear-helado (emitirAlta)="darAltaHelado($event)" *ngIf="opcionSeleccionada == 'crear'"></app-crear-helado>
-      <app-modificar-helado *ngIf="opcionSeleccionada == 'modificar'"></app-modificar-helado>
+      <app-modificar-helado [heladoAModificar]="heladoElegido" *ngIf="opcionSeleccionada == 'modificar'"></app-modificar-helado>
       <app-borrar-helado [heladoAEliminar]="heladoElegido" *ngIf="opcionSeleccionada == 'borrar'"></app-borrar-helado>
     <div class="card abm">
 

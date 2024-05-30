@@ -19,7 +19,8 @@ export class HeladosComponent implements OnInit {
   public sabor = '';
   public tipo = '';
   public heladoElegido : Helado | null = null; 
-  //public suscripcion!: Subscription;
+  public indiceHeladoElegido: number = -1;
+  public suscripcion!: Subscription;
   @Output () darAlta: EventEmitter<Helado> = new EventEmitter();
 
 
@@ -34,14 +35,35 @@ export class HeladosComponent implements OnInit {
     this.spinner.show()
 
     setTimeout(async () => {
-      this.listaHelados = await firstValueFrom(this.firestore.obtenerHelados());
+      this.suscripcion = this.firestore.obtenerHelados().subscribe(async helados=>
+        {
+          switch(this.opcionSeleccionada)
+          {
+            case "borrar":
+              this.opcionSeleccionada = "";
+              this.listaHelados.splice(this.indiceHeladoElegido,1);
+              break;
+            case "modificar":
+              this.opcionSeleccionada = "";
+              if(this.heladoElegido != null)
+              {
+                this.listaHelados = await firstValueFrom(this.firestore.obtenerHelados());              
+              }
+              break;
+            case "":
+              this.listaHelados = helados; 
+          }
+
+          console.log(this.listaHelados);
+        }
+      )
       this.spinner.hide();      
     }, 500);
   }
 
-  // ngOnDestroy(): void {
-  //   this.suscripcion.unsubscribe();
-  // }
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
+  }
 
   public cambiarOpcion(opcion:string)
   {
@@ -53,9 +75,10 @@ export class HeladosComponent implements OnInit {
     this.router.navigateByUrl(url)
   }
 
-  public elegirHelado(helado:Helado)
+  public elegirHelado(helado:Helado,indice:number)
   {
     this.heladoElegido = helado;
+    this.indiceHeladoElegido = indice;
     console.log(this.heladoElegido);
   }
 

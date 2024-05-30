@@ -1,1 +1,54 @@
-<p>modificar-helado works!</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Helado</title>
+</head>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Modificar helado</h2>
+            <p class="lead">Ingrese los datos correspondientes para modificar a un helado</p>
+        </div>
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Datos del helado</h4>
+                <form class="needs-validation" novalidate="" [formGroup]="formulario" (ngSubmit)="modificarHelado()">
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="tipo">Tipo</label>
+                            <select class="custom-select d-block w-100" id="tipo" name="Tipo" formControlName="tipo" required="">
+                                <option value="crema">crema</option>
+                                <option value="agua">agua</option>
+                            </select>
+                            <span *ngIf="verificarError('tipo')" class="form-text text-danger">
+                                {{obtenerError('tipo')}}
+                            </span>                          
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="peso">Peso (gr)</label>
+                            <input type="number" class="form-control" id="peso" name="Peso" placeholder="Ingrese el peso (gr)" value="" formControlName="peso" required="">
+                            <span *ngIf="verificarError('peso')" class="form-text text-danger">
+                                {{obtenerError('peso')}}
+                            </span>                        
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="precio">Precio ($)</label>
+                            <input type="number" class="form-control" id="precio" name="Precio" placeholder="Ingrese el precio ($)" value="" formControlName="precio" required="">
+                            <span *ngIf="verificarError('precio')" class="form-text text-danger">
+                                {{obtenerError('precio')}}
+                            </span>                        
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-danger btn-lg btn-block" type="submit">Modificar el helado</button>
+                </form>
+            </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">© 2024 Primer Parical Fernández Mariano </p>
+        </footer>
+    </div>    
+</body>
+</html>
